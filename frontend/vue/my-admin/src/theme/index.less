@@ -1,0 +1,29 @@
+ html,
+ body {
+     margin: 0;
+     padding: 0;
+     overflow: hidden
+ }
+
+ a {
+     color: #fff;
+     text-decoration: none;
+ }
+//  主题覆盖
+ @import './table.less';
+ @import './pagination.less';
+// 自定义主题
+ #app {
+   width: 100%;
+   height: 100%;
+ }
+ #app> .app-wrapper{
+     position: relative;
+     height: 100vh;
+     overflow: hidden;
+     display: flex;
+     flex-direction: row;
+     flex-wrap: nowrap;
+     @import './sidebar.less';
+     @import './container.less';
+ }
