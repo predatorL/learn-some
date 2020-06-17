@@ -1,0 +1,18 @@
+{
+  "name": "simple-server",
+  "version": "0.0.1",
+  "description": "koa初级入门",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa"
+  ],
+  "author": "lihaiyang",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.5.0",
+    "koa-router": "^7.4.0"
+  }
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>base</title>
+    <!-- lib -->
+    <script src="./static_assets/lib/vue.min.js"></script>
+    <script src="./static_assets/lib/echarts.min.js"></script>
+    <script src="./static_assets/lib/axios.min.js"></script>
+    <link rel="stylesheet" href="./static_assets/lib/element-ui/index.css">
+    <script src="./static_assets/lib/element-ui/index.js"></script>
+    <!-- custom -->
+    <link rel='stylesheet' href='./static_assets/style/style.css' />
+</head>
+
+<body>
+    <nav id="nav"></nav>
+    <section id="page"></section>
+</body>
+<script>
+    const myUtils = require('./static_assets/js/utils')
+    const vue_nav = require('./static_assets/navigation')
+    new Vue(vue_nav())
+
+</script>
+
+</html>

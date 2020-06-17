@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('layout/head'); %>
+</head>
+
+<body>
+    <div class="header-wrapper">
+        <%- include('layout/header'); %>
+    </div>
+    <!-- main -->
+    <div id="main">
+        <div class="content-wrapper" id="content">
+            <dl v-for="(post, i) in posts" :key="i">
+                <dt>{{post._id}}</dt>
+                <dd>{{post.title}}</dd>
+                <dd>{{post.content}}</dd>
+            </dl>
+        </div>
+        <script>
+            const app = new Vue({
+                el: '#content',
+                data: {
+                    posts: [],
+                },
+                mounted() {
+                    axios.get('/api/posts')
+                            .then(({data}) => {
+                                console.log(data.attachment)
+                                this.posts = data.status === 200 ? data.attachment : []
+                            })
+                            .catch( (error) => {
+                                console.log(error);
+                            });
+                },
+                methods: {
+                }
+            })
+        </script>
+        <div class="sidebar-wrapper">
+            <%- include('layout/sidebar'); %>
+        </div>
+    </div>
+    <!-- main end -->
+    <!-- footer -->
+    <div id="footer-wrapper">
+        <%- include('layout/footer'); %>
+    </div>
+    <!-- footer end -->
+</body>
+
+</html>
