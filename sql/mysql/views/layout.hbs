@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    {{!-- lib --}}
+    <script src="/lib/vue.min.js"></script>
+    <script src="/lib/echarts.min.js"></script>
+    <script src="/lib/axios.min.js"></script>
+    <link rel="stylesheet" href="/lib/element-ui/index.css">
+    <script src="/lib/element-ui/index.js"></script>    
+    {{!-- custom --}}
+    <link rel='stylesheet' href='/style/style.css' />
+    {{!-- js config --}}
+    <script src="/js/config/axios.js"></script>    
+    <script src="/js/utils/request.js"></script>    
+  </head>
+  <body>
+    <header>
+      <a href="/">回到首页</a>
+    </header>
+    {{{body}}}
+  </body>
+</html>
