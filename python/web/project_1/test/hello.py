@@ -10,7 +10,7 @@ class ListConverter(BaseConverter):
 
     def __init__(self, ulr_map, separator="+"):
         super(ListConverter, self).__init__(ulr_map)
-        self.separator = urllib.request.unquote(separator)
+        self.separator = urllib.parse.unquote(separator)
     
     def to_python(self, value):
         return value.split(self.separator)
@@ -34,7 +34,7 @@ app.url_map.converters['list'] = ListConverter
 def list1(page_names):
     return 'Separator: {} {}'.format('+', page_names)
 
-@app.route('list2/<list(separator=u"|"):page_names/>')
+@app.route('/list2/<list(separator=u"|"):page_names>/')
 def list2(page_names):
     return 'Separator: {} {}'.format('|', page_names)
 
