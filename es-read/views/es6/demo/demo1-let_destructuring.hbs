@@ -1,0 +1,36 @@
+<pre>
+    <code></code>
+</pre>
+<script id="script">
+    /*
+     *  let与const
+     *  不存在变量提升, 不会产生undefined的问题
+     *  (块级作用域)可以产生暂时性死区, 该区域内机制重复声明
+     *  const声明必须初始化
+     *  let与const声明的变量不属于全局变量
+     */
+
+
+    /* 模式匹配
+     * 等号左右结构相等(模式相等)
+     * 等号右边必须是可遍历的结构
+     * 等号两侧都可以使用展开符/收敛符...做任意拓展
+     * 等号左侧赋值可用常量、变量、函数，如果为函数，那这个表达式惰性求值
+     */
+    let [a, b, c] = [1, 2, [111]]
+    let { a1, b1, c1: c11 } = { a1: 22, b: '123', c1: 22 }
+    const f1 = () => {
+        console.log('f1')
+        return 11
+    }
+    const f2 = (name) => {
+        console.log(name, 'init')
+    }
+    let { a2 = f2('a2'), b2 = f2('b2') } = { b2: 132 }
+    const fn1 = (num = f1()) => {
+        console.log(`num is ${num}`)
+    }
+</script>
+<script>
+    __Utils.mountCode('pre code', '#script')
+</script>

@@ -1,0 +1,133 @@
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-y: auto;
+    }
+
+    #chat {
+        width: 600px;
+        margin: 0 auto;
+        height: 100vh;
+        overflow: hidden;
+        background-color: #EEEEEE;
+        box-shadow: 0 0 5px rgba(3, 3, 3, 0.6);
+    }
+
+    #title {
+        height: 30px;
+        box-sizing: border-box;
+        border-bottom: 1px solid rgba(3, 3, 3, 0.1);
+        line-height: 30px;
+        text-indent: 15px;
+        text-overflow: ellipsis;
+    }
+
+    #footer {
+        height: 130px;
+        box-sizing: border-box;
+        border-top: 1px solid rgba(3, 3, 3, 0.1);
+    }
+
+    #footer .toolbar {
+        height: 18px;
+    }
+
+    #footer .edit-area {
+        height: 80px;
+        width: 99%;
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 2px 5px;
+        overflow-y: auto;
+    }
+
+    #footer .action {
+        height: 30px;
+        padding-right: 10px;
+        text-align: right;
+    }
+
+    #article {
+        height: calc(100% - 200px);
+        overflow-y: auto;
+    }
+
+    #article .msg-box.alert {
+        width: 60%;
+        margin: 4px auto;
+        padding: 2px;
+        text-overflow: ellipsis;
+    }
+</style>
+<template class="template">
+    <section id="chat">
+        <header id="title">
+            socket测试
+        </header>
+        <article id="article">
+            <template v-for="(item, i) in msgTable">
+                <el-alert class="msg-box alert" v-if="item.type ==='alert'" center :title="item.data" type="success" :closable="false"> </el-alert>
+            </template>
+        </article>
+        <footer id="footer">
+            <div class="toolbar"></div>
+            <div class="edit-area">
+                <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="message">
+                </el-input>
+            </div>
+            <div class="action">
+                <el-button size="mini" @click="onSendMessage">发送</el-button>
+            </div>
+        </footer>
+    </section>
+</template>
+<script>
+    // TODO: div 可编辑　消蓝框　
+    new Vue({
+        el: '#app',
+        template: $('.template').innerHTML,
+        methods: {
+            processUserInput() {
+
+            },
+            onSendMessage() {
+                const { message, chatIns } = this
+                chatIns.emit('message', message)
+
+            },
+            someOneJoin(data) {
+                this.msgTable.push({
+                    type: 'alert',
+                    data: data.text
+                })
+            },
+
+            setChatEventListen(socket) {
+                socket.on('nameResult', (data) => {
+                    console.log('nameResult', data);
+                    this.$message('分配了个名叫: ' + data.name)
+                });
+                socket.on('joinResult', (data) => {
+                    console.log('joinResult', data);
+                    // this.$message(JSON.stringify(data))
+                });
+                socket.on('message', (data) => {
+                    this.someOneJoin(data)
+                });
+            }
+        },
+        mounted() {
+            const tempSocket = io.connect('http://127.0.0.1:3042')
+            this.setChatEventListen(tempSocket)
+            this.chatIns = tempSocket
+        },
+        data() {
+            return {
+                message: '',
+                chatIns: null,
+                msgTable: []
+            }
+        }
+    })
+</script>

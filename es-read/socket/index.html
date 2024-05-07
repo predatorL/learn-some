@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="content"></div>
+        <script>
+            const $content = new Proxy({
+                dom: document.querySelector('#content'),
+                _content: []
+            }, {
+                set(target, name, value) {
+                    if(name === 'content') {
+                        target._content.push(value)
+                        target.dom.innerHTML = target._content.join('<br/>')
+                    }
+                },
+                get(target, name) {
+
+                }
+            })
+            const ws = new WebSocket('ws://127.0.0.1:8091');
+            ws.onopen = function() {
+                ws.send('发送数据');
+                $content.content = '数据发送中...';
+            };
+
+            ws.onmessage = function(evt) {
+                var received_msg = evt.data;
+                $content.content = '数据已接收...';
+
+            };
+
+            ws.onclose = function() {
+                // 关闭 websocket
+                $content.content = '连接已关闭...';
+
+            };
+        </script>
+    </body>
+</html>

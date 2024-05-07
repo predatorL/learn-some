@@ -1,0 +1,37 @@
+<pre>
+    <code></code>
+</pre>
+<script id="script">
+    // Object
+    let book = { _year: 2004, edition: 1 }
+    Object.definePropty(book, 'year', {
+        get() {
+            return this._year
+        },
+        set(newVal) {
+            if (newVal > 2004) {
+                this._year = newVal
+                this.edition += newVal - 2004
+            }
+        }
+    })
+    let book2 = {}
+    Object.definePropties(book2, {
+        _year: 2004,
+        edition: 1,
+        year: {
+            get() {
+                return this._year
+            },
+            set(newVal) {
+                if (newVal > 2004) {
+                    this._year = newVal
+                    this.edition += newVal - 2004
+                }
+            }
+        }
+    })
+</script>
+<script>
+    __Utils.mountCode('pre code', '#script')
+</script>

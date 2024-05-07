@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>test</title>
+        <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+        <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+        <script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            {{msgTable}}
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {
+
+                setChatEventListen(socket) {
+                    socket.on('connect', data => {
+                        this.msgTable.push('已连接')
+                        console.log('connect', data);
+                    });
+                    socket.on('system-error', data => {
+                        this.$message.error(data.message);
+                    });
+                    socket.on('system', ({ type, ...other }) => {
+                        if (type === 'login') {
+                            console.log(other)
+                        }
+                    });
+                    socket.on('room-info', ({ type, data }) => {
+                        this.room = data;
+                    });
+                    socket.on('message', ({ type, ...other }) => {
+                        if (type === 'broadcast') {
+                            this.$message({
+                                message: other.text
+                            });
+                        }
+                        console.log(type, other);
+                        if (type === 'common') {
+                            this.msgTable.push(other.data);
+                        }
+                    });
+                }
+            },
+            mounted() {
+                const tempSocket = io.connect('http://127.0.0.1:3042');
+                this.setChatEventListen(tempSocket);
+                this.chatIns = tempSocket;
+            },
+            data() {
+                return {
+                    message: '',
+                    chatIns: null,
+                    msgTable: []
+                };
+            }
+        });
+    </script>
+</html>
