@@ -1,25 +1,19 @@
-#! /bin/bash
-
-# 安装 apt 依赖包，用于通过HTTPS来获取仓库
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-# 卸载可能存在的旧版本
-sudo apt-get remove docker docker-engine docker-ce docker.io
-# 添加 Docker 的官方 GPG 密钥
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-    sudo apt-key add -
-# 设置稳定版仓库
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) \
-  stable"
-# 更新 apt 包索引
+# Add Docker's official GPG key:
 sudo apt-get update
-# 安装最新版本的 Docker Engine-Community 和 containerd
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-# 测试 Docker 是否安装成功
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+# Install the Docker packages.
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Verify
 sudo docker run hello-world
