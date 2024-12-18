@@ -1,9 +1,0 @@
-{% extends 'layout.html' %}
-{% block content %}
-<h1>Hello, {{user.mickname}}!</h1>
-<ul>
-    {% for post in posts %}
-    <li>{{post.author.name}} says: <b>{{post.body}}</b></li>
-    {% endfor %}
-</ul>
-{% endblock %}
