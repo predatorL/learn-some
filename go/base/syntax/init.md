@@ -6,3 +6,7 @@
 mkdir myginproject
 cd myginproject
 go mod init myginproject
+
+
+## 构建命令
+go build

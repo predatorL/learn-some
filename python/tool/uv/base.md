@@ -44,6 +44,8 @@ uv 通过 uv sync 命令来保持虚拟环境与项目要求的一致性。这�
 uv add -g black
 uv tool install ruff
 
+## 执行工具
+uv run django-admin startproject hello .
 
 # 参考文档
 - [uv](https://uv.readthedocs.io/en/latest/)
