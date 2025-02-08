@@ -50,3 +50,9 @@ uv run django-admin startproject hello .
 # 参考文档
 - [uv](https://uv.readthedocs.io/en/latest/)
 - https://juejin.cn/post/7444387793842864169
+
+
+## requirements.txt转换pyproject.toml
+> uv add -r requirements.txt
+> uv add $(cat requirements.txt)
+> uv pip install -r requirements.txt
