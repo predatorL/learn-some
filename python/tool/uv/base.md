@@ -46,10 +46,11 @@ uv tool install ruff
 
 ## 执行工具
 uv run django-admin startproject hello .
-
+> 
 # 参考文档
 - [uv](https://uv.readthedocs.io/en/latest/)
 - https://juejin.cn/post/7444387793842864169
+- https://blog.pecar.me/uv-with-django#using-uv-to-create-a-new-django-project
 
 
 ## requirements.txt转换pyproject.toml
