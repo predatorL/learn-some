@@ -1,5 +1,8 @@
 # uv (uv: Unified Python packaging) 
-
+# 安装
+> curl -LsSf https://astral.sh/uv/install.sh | sh
+> wget -qO- https://astral.sh/uv/install.sh | sh
+- [官方文档](https://docs.astral.sh/uv/)
 # 环境
 ## 初始化旧的项目
 cd example
