@@ -1,0 +1,64 @@
+services:
+  # Redis 服务
+  redis:
+    image: redis:7.4.2-alpine
+    pull_policy: if_not_present
+    container_name: my_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - $HOME/workplace/data/redis:/data
+    environment:
+      - TZ=Asia/Shanghai
+      - REDIS_PASSWORD=your_redis_123456  # Redis 密码
+    command: redis-server --requirepass $${REDIS_PASSWORD} --appendonly yes
+
+  # MySQL 8.0.x
+  mysql:
+    image: mysql:8.4.4
+    pull_policy: if_not_present
+    container_name: my_mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    volumes:
+      - $HOME/workplace/data/mysql:/var/lib/mysql  # 数据持久化
+      # - ./mysql/conf:/etc/mysql/conf.d             # 自定义配置目录（可选）
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=your_mysql_root_123456  # Root密码
+      - MYSQL_DATABASE=app_db                         # 初始数据库
+      - MYSQL_USER=app_user                           # 初始用户
+      - MYSQL_PASSWORD=app_user_123456              # 用户密码
+
+  # RabbitMQ 3.13.7（带管理界面）
+  rabbitmq:
+    image: rabbitmq:3.13.7
+    pull_policy: if_not_present
+    container_name: my_rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"   # AMQP协议端口
+      - "15672:15672" # 管理界面端口
+    volumes:
+      - $HOME/workplace/data/rabbitmq:/var/lib/rabbitmq
+    environment:
+      - TZ=Asia/Shanghai
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin_123456
+
+  # Jenkins LTS
+  jenkins:
+    image: jenkins/jenkins:2.492.3-lts
+    pull_policy: if_not_present
+    container_name: my_jenkins
+    restart: unless-stopped
+    ports:
+      - "8080:8080"   # Web界面
+      - "50022:50000" # Agent通信端口
+    volumes:
+      - $HOME/workplace/data/jenkins:/var/jenkins_home  # Jenkins核心数据
+      - /var/run/docker.sock:/var/run/docker.sock       # 允许操作宿主机Docker（按需启用）
+    environment:
+      - TZ=Asia/Shanghai
