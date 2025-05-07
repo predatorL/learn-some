@@ -1,3 +1,4 @@
+## base
 以下是针对中小型项目的 **Docker Compose 集成方案**，包含 MySQL、RabbitMQ、Jenkins 和 Redis，数据统一挂载到 `$HOME/workplace/data/` 目录，配置简洁且满足基础需求：
 
 ---
@@ -163,3 +164,7 @@ docker compose up -d
   - MySQL：限制 root 远程访问。
   - RabbitMQ：禁用默认账户，创建业务专用用户。
   - Jenkins：安装 Role-based Authorization 插件管理权限。
+
+## 容器脚本
+> docker-compose -f npm-docker-compose.yml up -d
+> -d 参数应该紧跟在 up 命令之后, 通过 -f 或 --file 参数，你可以轻松指定要使用的 Docker Compose 文件
