@@ -67,3 +67,15 @@ $ docker network inspect <网络名称>
 
 
 ```
+
+# 镜像导出
+- 压缩导出
+> docker save mysql:8.4.4 | xz > mysql.tar.xz
+
+# 不同平台镜像下载
+
+# 网络
+- 探测网络，看看有哪些容器: docker network inspect caddy-network
+- 创建网络：docker network create caddy-network
+# 查看容器
+docker exec -it caddy sh
