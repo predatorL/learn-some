@@ -77,5 +77,6 @@ $ docker network inspect <网络名称>
 # 网络
 - 探测网络，看看有哪些容器: docker network inspect caddy-network
 - 创建网络：docker network create caddy-network
+- 手动将 Caddy 容器连接到网络： docker network connect caddy-network caddy
 # 查看容器
 docker exec -it caddy sh
