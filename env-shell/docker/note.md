@@ -71,6 +71,7 @@ $ docker network inspect <网络名称>
 # 镜像导出
 - 压缩导出
 > docker save mysql:8.4.4 | xz > mysql.tar.xz
+> docker load -i /tmp/xxljob.tar.xz
 
 # 不同平台镜像下载
 
@@ -80,3 +81,15 @@ $ docker network inspect <网络名称>
 - 手动将 Caddy 容器连接到网络： docker network connect caddy-network caddy
 # 查看容器
 docker exec -it caddy sh
+
+
+# 日志查询
+## 只查看最新100行日志
+docker logs --tail 100 plat-server-app
+
+## 跟踪实时日志（不显示历史）
+docker logs -f --since 5m plat-server-app
+
+## 导出最近1小时的日志
+docker logs --since 1h plat-server-app > app-last-hour.log
+
