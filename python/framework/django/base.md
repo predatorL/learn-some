@@ -14,6 +14,31 @@ uv run django-admin startproject myproject .
 ## 在指定创建app
 > 需要注意 project_app/cook需要提前创建好
 > uv run django-admin startapp cook ./project_app/cook
+> 对于已创建的app，引入方式为
+MD```
+让 Django 识别 apps 目录
+# cms/settings.py
+import os
+import sys
+
+# 把 apps 目录加入 sys.path（让 Python 能识别 apps 下的模块）
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))  # 新增这行
+
+# 其他原有配置...
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    # ... 其他内置 App
+    
+    # 方式 1：加入 apps 目录后，直接写 App 名（推荐）
+    'checklist',
+    
+    # 方式 2：不加入 sys.path 时，写完整路径
+    # 'apps.checklist',
+]
+```
+
 
  ## 配置设置
 * 调整镜像源
